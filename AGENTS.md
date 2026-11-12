@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- All invitation content (names, date, venue, photo slots) lives in `src/lib/invitation.ts`; components read from it so details change in one place.
+- D-day math lives in `src/lib/dday.ts` and counts calendar days in Korea time (UTC+9) so the count doesn't shift with the visitor's timezone.

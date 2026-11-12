@@ -13,7 +13,7 @@ export default defineConfig({
   vite: {
     // GitHub Pages project sites are served under /<repo-name>/; the deploy
     // workflow sets BASE_PATH accordingly. Locally and on Lovable it stays "/".
-    base: process.env.BASE_PATH ?? "/",
+    base: process.env["BASE_PATH"] ?? "/",
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).

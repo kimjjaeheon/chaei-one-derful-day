@@ -16,7 +16,7 @@ export const invitation = {
   dateShort: "2027. 01. 24. SUN 11:00 AM",
   venue: {
     name: "포포인츠 바이 쉐라톤 서울 구로",
-    hall: "", // 연회장 이름 (예: 2층 PDR AB룸) — 정해지면 입력
+    hall: "PDR AB룸",
     address: "서울 구로구 디지털로32길 72",
     tel: "02-6905-9500",
     subway: "2호선 구로디지털단지역 2번 출구 도보 약 3분",

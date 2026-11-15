@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Check, Copy, Phone, TrainFront, CarFront } from "lucide-react";
+import {
+  ArrowUpRight,
+  CarFront,
+  Check,
+  Copy,
+  MapPin,
+  Phone,
+  TrainFront,
+} from "lucide-react";
 import { invitation } from "@/lib/invitation";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "./SectionTitle";
@@ -34,27 +42,50 @@ export function LocationSection() {
         </button>
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-2xl border border-border">
-        <iframe
-          title={`${venue.name} 지도`}
-          src={venue.googleEmbed}
-          className="block h-60 w-full"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </div>
+      {/* Main map: Naver Map (tap to open) */}
+      <a
+        href={venue.naverMap}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-8 block overflow-hidden rounded-2xl border border-border shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <div className="bg-blush-gradient px-6 py-8 text-center">
+          <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-paper shadow-soft">
+            <MapPin className="h-5 w-5 text-primary" />
+          </span>
+          <p className="mt-4 font-display text-base tracking-[0.08em]">{venue.name}</p>
+          {venue.hall ? <p className="mt-1 text-xs text-primary">{venue.hall}</p> : null}
+          <p className="mt-2 text-sm text-muted-foreground">{venue.address}</p>
+          <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm text-primary-foreground shadow-soft">
+            네이버 지도로 열기
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+          <p className="mt-3 text-xs text-muted-foreground">새 창에서 네이버 지도가 열려요</p>
+        </div>
+      </a>
 
       <div className="mt-4 grid grid-cols-2 gap-2">
-        <Button asChild variant="soft">
-          <a href={venue.naverMap} target="_blank" rel="noreferrer">
-            네이버 지도
-          </a>
-        </Button>
         <Button asChild variant="soft">
           <a href={venue.kakaoMap} target="_blank" rel="noreferrer">
             카카오맵
           </a>
         </Button>
+        <Button asChild variant="soft">
+          <a href={venue.googleMap} target="_blank" rel="noreferrer">
+            구글 지도
+          </a>
+        </Button>
+      </div>
+
+      <div className="mt-4 overflow-hidden rounded-2xl border border-border">
+        <p className="bg-paper px-4 py-2 text-xs text-muted-foreground">구글 지도 미리보기</p>
+        <iframe
+          title={`${venue.name} 구글 지도`}
+          src={venue.googleEmbed}
+          className="block h-40 w-full"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
 
       <ul className="mt-10 space-y-5 text-sm">

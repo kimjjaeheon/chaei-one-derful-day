@@ -23,11 +23,6 @@ export const invitation = {
     parking: "호텔 지하 주차장 이용 가능",
     naverMap: "https://map.naver.com/p/search/" + encodeURIComponent("포포인츠 바이 쉐라톤 서울 구로"),
     kakaoMap: "https://map.kakao.com/link/search/" + encodeURIComponent("포포인츠바이쉐라톤서울구로"),
-    googleMap: "https://www.google.com/maps/search/" + encodeURIComponent("포포인츠 바이 쉐라톤 서울 구로"),
-    googleEmbed:
-      "https://www.google.com/maps?q=" +
-      encodeURIComponent("포포인츠 바이 쉐라톤 서울 구로") +
-      "&output=embed",
   },
   // 사진을 넣으려면 public/images 폴더에 파일을 넣고 경로를 적어주세요. 예: "/images/main.jpg"
   photos: {

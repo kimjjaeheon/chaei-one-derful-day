@@ -64,28 +64,12 @@ export function LocationSection() {
         </div>
       </a>
 
-      <div className="mt-4 grid grid-cols-2 gap-2">
-        <Button asChild variant="soft">
+      <div className="mt-4">
+        <Button asChild variant="soft" className="w-full">
           <a href={venue.kakaoMap} target="_blank" rel="noreferrer">
-            카카오맵
+            카카오맵으로 열기
           </a>
         </Button>
-        <Button asChild variant="soft">
-          <a href={venue.googleMap} target="_blank" rel="noreferrer">
-            구글 지도
-          </a>
-        </Button>
-      </div>
-
-      <div className="mt-4 overflow-hidden rounded-2xl border border-border">
-        <p className="bg-paper px-4 py-2 text-xs text-muted-foreground">구글 지도 미리보기</p>
-        <iframe
-          title={`${venue.name} 구글 지도`}
-          src={venue.googleEmbed}
-          className="block h-40 w-full"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
       </div>
 
       <ul className="mt-10 space-y-5 text-sm">

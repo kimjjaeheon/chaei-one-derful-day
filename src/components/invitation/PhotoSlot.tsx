@@ -15,7 +15,14 @@ export function PhotoSlot({
   className?: string;
 }) {
   if (src) {
-    return <img src={src} alt={alt} loading="lazy" className={cn("h-full w-full object-cover", className)} />;
+    return (
+      <img
+        src={resolvePhotoSrc(src)}
+        alt={alt}
+        loading="lazy"
+        className={cn("h-full w-full object-cover", className)}
+      />
+    );
   }
   return (
     <div

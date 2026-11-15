@@ -1,5 +1,6 @@
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { resolvePhotoSrc } from "@/lib/photo-src";
 
 /** Shows the photo when a src is set, otherwise an empty frame waiting for a photo. */
 export function PhotoSlot({

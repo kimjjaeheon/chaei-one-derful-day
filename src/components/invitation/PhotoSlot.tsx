@@ -1,5 +1,6 @@
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { resolvePhotoSrc } from "@/lib/photo-src";
 
 /** Shows the photo when a src is set, otherwise an empty frame waiting for a photo. */
 export function PhotoSlot({
@@ -14,7 +15,14 @@ export function PhotoSlot({
   className?: string;
 }) {
   if (src) {
-    return <img src={src} alt={alt} loading="lazy" className={cn("h-full w-full object-cover", className)} />;
+    return (
+      <img
+        src={resolvePhotoSrc(src)}
+        alt={alt}
+        loading="lazy"
+        className={cn("h-full w-full object-cover", className)}
+      />
+    );
   }
   return (
     <div

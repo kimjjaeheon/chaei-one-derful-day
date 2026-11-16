@@ -21,6 +21,7 @@ export function GalleryLightbox({
   const touchStartX = useRef<number | null>(null);
   const open = index !== null && photos.length > 0;
   const current = index ?? 0;
+  const currentSrc = photos[current];
   const go = (delta: number) => onIndexChange(stepIndex(current, delta, photos.length));
 
   return (
@@ -63,10 +64,10 @@ export function GalleryLightbox({
           </div>
 
           <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 pb-6">
-            {open && (
+            {open && currentSrc && (
               <img
-                key={photos[current]}
-                src={resolvePhotoSrc(photos[current])}
+                key={currentSrc}
+                src={resolvePhotoSrc(currentSrc)}
                 alt={`${altPrefix} ${current + 1}`}
                 className="max-h-full max-w-full select-none rounded-lg object-contain animate-in fade-in-0 duration-300"
                 draggable={false}

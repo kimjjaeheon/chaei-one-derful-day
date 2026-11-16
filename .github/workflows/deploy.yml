@@ -27,14 +27,18 @@ jobs:
 
       - name: Build static site
         env:
-          # Project pages are served at https://<user>.github.io/<repo>/
           BASE_PATH: /${{ github.event.repository.name }}/
         run: bun run build
+
+      - name: Check build output
+        run: |
+          ls -la dist
+          test -f dist/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: dist
 
   deploy:
     needs: build

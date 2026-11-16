@@ -27,9 +27,15 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Read GitHub Pages address
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Build static site
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+          # Full site address, used for the KakaoTalk link-preview thumbnail.
+          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}
         run: bunx vite build --config vite.config.github.ts
 
       - name: Prepare GitHub Pages files

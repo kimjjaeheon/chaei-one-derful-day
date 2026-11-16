@@ -8,13 +8,14 @@ import { CalendarSection } from "@/components/invitation/CalendarSection";
 import { LocationSection } from "@/components/invitation/LocationSection";
 import { ShareSection } from "@/components/invitation/ShareSection";
 import { GalleryLightbox } from "@/components/invitation/GalleryLightbox";
-import { ogImageUrl } from "@/lib/og";
+import { normalizeSiteUrl, ogImageUrl } from "@/lib/og";
 
 const title = `${invitation.baby.name} 첫 번째 생일에 초대합니다`;
 const description = `${invitation.dateLabel} · ${invitation.venue.name}`;
 // Set at build time by the GitHub Pages workflow (e.g. https://<user>.github.io/<repo>).
-const siteUrl = import.meta.env["VITE_SITE_URL"] as string | undefined;
-const ogImage = ogImageUrl(siteUrl, invitation.photos.thumbnail);
+const rawSiteUrl = import.meta.env["VITE_SITE_URL"] as string | undefined;
+const siteUrl = normalizeSiteUrl(rawSiteUrl);
+const ogImage = ogImageUrl(rawSiteUrl, invitation.photos.thumbnail);
 
 export const Route = createFileRoute("/")({
   head: () => ({

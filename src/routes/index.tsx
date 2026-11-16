@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { invitation } from "@/lib/invitation";
 import { PhotoSlot } from "@/components/invitation/PhotoSlot";
@@ -6,9 +7,14 @@ import { SectionTitle } from "@/components/invitation/SectionTitle";
 import { CalendarSection } from "@/components/invitation/CalendarSection";
 import { LocationSection } from "@/components/invitation/LocationSection";
 import { ShareSection } from "@/components/invitation/ShareSection";
+import { GalleryLightbox } from "@/components/invitation/GalleryLightbox";
+import { ogImageUrl } from "@/lib/og";
 
 const title = `${invitation.baby.name} 첫 번째 생일에 초대합니다`;
 const description = `${invitation.dateLabel} · ${invitation.venue.name}`;
+// Set at build time by the GitHub Pages workflow (e.g. https://<user>.github.io/<repo>).
+const siteUrl = import.meta.env["VITE_SITE_URL"] as string | undefined;
+const ogImage = ogImageUrl(siteUrl, invitation.photos.thumbnail);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,6 +25,15 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...(siteUrl ? [{ property: "og:url", content: siteUrl }] : []),
+      ...(ogImage
+        ? [
+            { property: "og:image", content: ogImage },
+            { property: "og:image:width", content: "1200" },
+            { property: "og:image:height", content: "630" },
+            { name: "twitter:image", content: ogImage },
+          ]
+        : []),
     ],
   }),
   component: Index,
@@ -36,6 +51,8 @@ function Divider() {
 
 function Index() {
   const { baby, parents, photos, venue } = invitation;
+  const viewable = photos.gallery.filter((src) => src);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <main className="min-h-screen bg-background">
@@ -108,12 +125,34 @@ function Index() {
           <Reveal>
             <SectionTitle en="Gallery" ko="채이의 일 년" />
             <div className="grid grid-cols-2 gap-2">
-              {photos.gallery.map((src, i) => (
-                <div key={i} className="aspect-square overflow-hidden rounded-xl">
-                  <PhotoSlot src={src} alt={`${baby.name} 사진 ${i + 1}`} label={`사진 ${i + 1}`} />
-                </div>
-              ))}
+              {photos.gallery.map((src, i) =>
+                src ? (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setOpenIndex(viewable.indexOf(src))}
+                    aria-label={`사진 ${i + 1} 크게 보기`}
+                    className="aspect-square overflow-hidden rounded-xl transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <PhotoSlot src={src} alt={`${baby.name} 사진 ${i + 1}`} />
+                  </button>
+                ) : (
+                  <div key={i} className="aspect-square overflow-hidden rounded-xl">
+                    <PhotoSlot alt={`${baby.name} 사진 ${i + 1}`} label={`사진 ${i + 1}`} />
+                  </div>
+                ),
+              )}
             </div>
+            {viewable.length > 0 && (
+              <p className="mt-4 text-center text-xs text-muted-foreground">사진을 누르면 크게 볼 수 있어요</p>
+            )}
+            <GalleryLightbox
+              photos={viewable}
+              index={openIndex}
+              onIndexChange={setOpenIndex}
+              onClose={() => setOpenIndex(null)}
+              altPrefix={`${baby.name} 사진`}
+            />
           </Reveal>
         </section>
 

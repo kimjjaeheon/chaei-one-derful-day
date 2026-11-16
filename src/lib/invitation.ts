@@ -27,6 +27,8 @@ export const invitation = {
   // 사진을 넣으려면 public/images 폴더에 파일을 넣고 경로를 적어주세요. 예: "/images/main.jpg"
   photos: {
     main: "/images/image1.jpg",
+    // 카카오톡 등으로 링크를 보낼 때 보이는 미리보기 썸네일 (1200x630 권장)
+    thumbnail: "/images/og-thumbnail.jpg",
     gallery: ["/images/image1.jpg", "/images/image2.jpg", "/images/image3.jpg", "/images/image4.jpg", "/images/image5.jpg", "/images/image6.jpg"],
   },
 } as const;

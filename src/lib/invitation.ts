@@ -26,7 +26,7 @@ export const invitation = {
   },
   // 사진을 넣으려면 public/images 폴더에 파일을 넣고 경로를 적어주세요. 예: "/images/main.jpg"
   photos: {
-    main: "/images/1.jpg",
-    gallery: ["/images/1.jpg", "/images/2.jpg", "/images/3.jpg", "/images/4.jpg", "/images/5.jpg", "/images/6.jpg"],
+    main: "/images/image1.jpg",
+    gallery: ["/images/image1.jpg", "/images/image2.jpg", "/images/image3.jpg", "/images/image4.jpg", "/images/image5.jpg", "/images/image6.jpg"],
   },
 } as const;

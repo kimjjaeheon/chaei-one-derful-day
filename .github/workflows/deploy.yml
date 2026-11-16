@@ -1,3 +1,4 @@
+
 name: Deploy to GitHub Pages
 
 on:
@@ -17,6 +18,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -28,24 +30,29 @@ jobs:
       - name: Build static site
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
-        run: bun run build
+        run: bunx vite build --config vite.config.github.ts
 
-      - name: Check build output
+      - name: Prepare GitHub Pages files
         run: |
-          ls -la dist
-          test -f dist/index.html
+          ls -la dist/client
+          test -f dist/client/_shell.html
+          cp dist/client/_shell.html dist/client/index.html
+          cp dist/client/_shell.html dist/client/404.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/client
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
